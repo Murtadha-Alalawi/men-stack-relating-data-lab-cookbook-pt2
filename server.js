@@ -6,10 +6,11 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
-const listingsController = require("./controllers/listing.route.js")
 const isSignedIn = require("./middleware/is-signed-in.js")
 
 const authController = require('./controllers/auth.js');
+const recipesController = require('./controllers/recipes.js');
+const ingredientsController = require('./controllers/ingredients.js');
 const passUserToView = require('./middleware/pass-to-user.js');
 
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -37,18 +38,15 @@ app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-app.get('/vip-lounge', (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.send('Sorry, no guests allowed.');
-  }
-});
+
 
 app.use('/auth', authController);
 app.use(isSignedIn)
-app.use("/listings",listingsController)
-
+app.use('/recipes', recipesController);
+app.use('/ingredients', ingredientsController);
+ 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h2>Details</h2>
+
+<ul>
+    <li> Recipe:  <%= recipe.name %></li>
+  
+    <li> Instructions: <%= recipe.instructions %></li>
+  
+    <li> Ingredients: <%= recipe.ingredients %></li>
+
+</ul>
+
+<a href="/recipes/<%= recipe._id %>/edit">Edit recipe</a>
+
+<form action="/recipes/<%=recipe._id%>?_method=DELETE" method="POST">
+    <button type="submit">Delete recipe</button>
+</form>
+
+
+<form action="/ingredients" method="POST">
+
+    <label for="name">Place ingredients for the recipe</label>
+    <input type="text" name="name" id="name">
+
+    <button type="submit"> add ingredients</button>
+
+</form>
+</body>
+</html>
